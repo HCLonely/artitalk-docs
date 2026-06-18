@@ -1,8 +1,10 @@
 ---
 home: true
 heroImage: https://s1.ax1x.com/2022/05/22/OvT2X4.png
-actionText: 使用文档 →
-actionLink: /doc/
+actions:
+  - text: 使用文档 →
+    link: /doc/
+    type: primary
 features:
 - title: 🤞使用方便
   details: 简略的 html 片段即可实现，且理论上支持任何框架或单独页面。

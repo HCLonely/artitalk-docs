@@ -1,6 +1,6 @@
 ---
 title: 更新日志
-sidebar: auto
+sidebar: heading
 ---
 
 ::: warning 历史说明

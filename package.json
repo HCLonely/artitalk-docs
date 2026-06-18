@@ -6,15 +6,18 @@
   "repository": "https://github.com/ArtitalkJS/docs",
   "author": "ArtitalkJS",
   "license": "MIT",
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "scripts": {
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs"
   },
   "devDependencies": {
-    "vuepress": "^1.5.3"
-  },
-  "dependencies": {
-    "markdown-it-task-lists": "^2.1.1",
-    "vuepress-theme-yilia-plus": "^1.0.0"
+    "@vuepress/bundler-vite": "^2.0.0-rc.30",
+    "@vuepress/theme-default": "^2.0.0-rc.130",
+    "sass-embedded": "^1.100.0",
+    "vue": "^3.5.38",
+    "vuepress": "^2.0.0-rc.30"
   }
 }

@@ -1,6 +1,6 @@
 ---
 title: 使用文档
-sidebar: auto
+sidebar: heading
 ---
 
 ## 👀 前言

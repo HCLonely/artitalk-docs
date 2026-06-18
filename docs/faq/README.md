@@ -1,6 +1,6 @@
 ---
 title: FAQ 常见问题及回答
-sidebar: auto
+sidebar: heading
 ---
 
 ## 🔨 常见问题

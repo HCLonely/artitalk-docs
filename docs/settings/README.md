@@ -1,6 +1,6 @@
 ---
 title: 配置项
-sidebar: auto
+sidebar: heading
 ---
 
 ## 初始化方式

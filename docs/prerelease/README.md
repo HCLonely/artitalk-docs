@@ -1,6 +1,6 @@
 ---
 title: 更新日志
-sidebar: auto
+sidebar: heading
 ---
 
 ::: warning 历史说明
@@ -40,7 +40,7 @@ sidebar: auto
 ## `2020.7.7 19:03`
 
 * 目前最新版本 v2.3.4
-* 添加自定义图片，音频与视频的存储仓库配置项，具体怎么操作请前往 [配置项](settings.html#📌token-pt) 查看
+* 添加自定义图片，音频与视频的存储仓库配置项，具体怎么操作请前往 [配置项](/settings/#📌token-pt) 查看
 
 ## `2020.7.4 9:26`
 
@@ -399,12 +399,6 @@ sidebar: auto
 
 * 更新优化时间显示
 
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-format="fluid"
-     data-ad-layout-key="-fb+5w+4e-db+86"
-     data-ad-client="ca-pub-9420537843748923"
-     data-ad-slot="8405286900"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+<ClientOnly>
+  <AdsByGoogle />
+</ClientOnly>
