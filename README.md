@@ -10,8 +10,8 @@
 下载
 
 ```bash
-git clone git@github.com:ArtitalkJS/docs.git
-cd docs
+git clone https://github.com/HCLonely/artitalk-docs.git
+cd artitalk-docs
 npm install
 ```
 

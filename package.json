@@ -3,8 +3,8 @@
   "private": true,
   "version": "1.0.0",
   "description": "ArtitalkJS-docs",
-  "repository": "https://github.com/ArtitalkJS/docs",
-  "author": "ArtitalkJS",
+  "repository": "https://github.com/HCLonely/artitalk-docs",
+  "author": "ArtitalkJS, HCLonely",
   "license": "MIT",
   "engines": {
     "node": ">=20.9.0"
