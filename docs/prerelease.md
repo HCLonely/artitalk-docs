@@ -2,12 +2,17 @@
 title: 更新日志
 sidebar: auto
 ---
+
+::: warning 历史说明
+本页为 Artitalk 早期版本日志。页面中的 LeanCloud 配置、Class 操作和旧版参数仅用于保留历史记录，当前版本请按照[Vercel 部署文档](/doc/#部署服务端)配置。
+:::
+
 ### `2020.8.21 17:44`
 
 * 目前最新版本 v2.4.2
 * css大改，以后应该不会再产生冲突
 * 取消绝大部分对于jQuery的依赖，意味着可以不用手动引入jQuery
-* 添加自定义css的配置项，具体请前往[配置项](/settings.html)查看
+* 添加自定义css的配置项，具体请前往[配置项](/settings/)查看
 
 ## `2020.8.9 16:08`
 
@@ -73,7 +78,7 @@ sidebar: auto
 ## `2020.6.27 11:50`
 
 * 目前最新版本 v2.2.0
-* 对布局进行调整，加载动画仅覆盖 artitalk 部分，弹出框放在了外面 [#7](https://github.com/ArtitalkJS/Artitalk/issues/7)
+* 对布局进行调整，加载动画仅覆盖 artitalk 部分，弹出框放在了外面 [#7](https://github.com/HCLonely/Artitalk/issues/7)
 
 这次版本更新需要进行一些改动，如下
 将原来的

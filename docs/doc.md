@@ -2,168 +2,164 @@
 title: 使用文档
 sidebar: auto
 ---
+
 ## 👀 前言
 
-GitHub 仓库：[Artitalk.js](https://github.com/ArtitalkJS/Artitalk)
+Artitalk 是一个可以嵌入博客或静态站点的说说/微语组件。当前版本使用部署在 Vercel 上的服务端和 Neon Postgres 数据库，不再要求创建 LeanCloud 应用。
+
+- GitHub 仓库：[Artitalk.js](https://github.com/HCLonely/Artitalk)
+- 原项目仓库：[Artitalk.js](https://github.com/ArtitalkJS/Artitalk)
 
 ### 🎉 特性
 
-* 增删查改全方面支持
-* 支持针对每条说说的评论
-* 支持 Markdown/html 语法
-* 支持图片上传
+- 发布、编辑和删除说说
+- 支持针对每条说说发表评论
+- 支持 Markdown/HTML 语法
+- 支持图片、音乐和视频上传入口
+- 可从旧 LeanCloud 应用迁移说说和评论数据
 
-## 🚀 快速使用
+## 🚀 部署服务端
 
-下列主题已将本项目整合进去，可以直接使用。
-感谢以下主题对本项目的支持~
+### 1. 创建 Vercel 项目
 
-### [hexo-theme-volantis](https://github.com/xaoxuu/hexo-theme-volantis/)
+使用vercel一键部署: [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FHCLonely%2FArtitalkServer&env=ADMIN_USERNAME,ADMIN_PASSWORD,ADMIN_IMG,ADMIN_IMG_Token,ALLOW_ORIGIN&envDefaults=%7B%22ADMIN_IMG%22%3A%22null%22%2C%22ADMIN_IMG_Token%22%3A%22null%22%2C%22ALLOW_ORIGIN%22%3A%22*%22%7D&envDescription=ADMIN_USERNAME%E5%92%8CADMIN_PASSWORD%E4%B8%BA%E5%BF%85%E5%A1%AB%E9%A1%B9&envLink=https%3A%2F%2Fgithub.com%2FHCLonely%2FArtitalkServer%23%25E7%258E%25AF%25E5%25A2%2583%25E5%258F%2598%25E9%2587%258F&project-name=artitalk&repository-name=artitalk-server)
 
-### [hexo-theme-cards](https://github.com/ChrAlpha/hexo-theme-cards)
+或
 
-### [hexo-theme-butterfly](https://github.com/jerryc127/hexo-theme-butterfly)
+1. Fork [ArtitalkServer](https://github.com/HCLonely/ArtitalkServer) 仓库到自己的 GitHub 账号。
+2. 在 [Vercel](https://vercel.com/) 中导入仓库。
+3. 在 Vercel 项目的 Environment Variables 中添加下列变量。
 
-### [hexo-theme-matery](https://github.com/blinkfox/hexo-theme-matery/)
+| 变量名 | 必填 | 说明 |
+| --- | --- | --- |
+| `ADMIN_USERNAME` | 是 | 首次初始化时创建的管理员用户名。 |
+| `ADMIN_PASSWORD` | 是 | 管理员密码。 |
+| `ADMIN_IMG` | 否 | 管理员头像 URL。 |
+| `ADMIN_IMG_Token` | 否 | [S.EE](https://s.ee/) 图床上传 Token；不配置时无法使用文件上传。 |
+| `ALLOW_ORIGIN` | 否 | 允许调用服务端的站点来源。多个来源用英文逗号分隔，例如 `https://blog.example.com,https://admin.example.com`。留空则允许所有域名。 |
 
-### [gridea-theme-dark](https://github.com/jalenchuh/gridea-theme-dark)
-
-### [hexo-theme-MengD](https://github.com/lete114/hexo-theme-mengd/)
-
-## 🚀 开始使用
-
-### 🌈 LeanCloud 的相关准备
-
-:::tip 
-**🎃 与 Valine 在同一个页面使用**
-
-如果迫切需要将 Artitalk 与 Valine 在同一个页面使用，可以通过 Artitalk 与 Valine 使用同一个 LeanCloud 的应用来解决。
-
-**🌍 建议使用国际版的 LeanCloud**
-
-因为国际版的 LeanCloud 不需要配置 serverurl，所以推荐使用国际版，速度没有区别，如果使用国内版的 LeanCloud 别忘了填写 serverurl 即可
+::: warning
+`ADMIN_USERNAME`、`ADMIN_PASSWORD` 和图床 Token 只能配置在 Vercel 环境变量中，不要写入前端页面或提交到 Git 仓库。
 :::
 
-:::tip 👀 与valine在同一页面使用
-如果有这个需要，可以将 artitalk 与 valine 存放在同一个应用中。可以有效避免同一个页面使用两个leancloud应用所产生的冲突。
+完成环境变量配置后先部署项目。数据库可以在部署前或部署后连接；连接完成后需要重新部署一次，使数据库变量进入 Production 部署。
+
+### 2. 创建并连接 Neon 数据库
+
+推荐通过 Vercel Storage 安装 Neon 集成。Vercel 会自动把数据库连接信息写入项目环境变量。
+
+在 Vercel 团队或账号主页左侧打开 **Storage**：
+
+![打开 Vercel Storage](/images/vercel1.png)
+
+点击右上角 **Create Database**：
+
+![创建数据库](/images/vercel2.png)
+
+选择 **Neon**，然后点击 **Continue**：
+
+![选择 Neon](/images/vercel3.png)
+
+选择数据库区域。建议选择离主要访问者较近的区域；免费套餐可满足个人站点的基础使用：
+
+![选择 Neon 区域和套餐](/images/vercel4.png)
+
+确认资源名称和配置后点击 **Create**：
+
+![确认创建 Neon 数据库](/images/vercel5.png)
+
+创建完成后连接刚才部署的 Vercel 项目：
+
+1. 在 **Project** 中选择 Artitalk 服务端项目。
+2. 至少勾选 **Production** 环境。
+3. **Custom Prefix 必须填写 `ARTITALK`**。
+4. 点击 **Connect**。
+
+![连接项目并设置 ARTITALK 前缀](/images/vercel6.png)
+
+正确连接后，Vercel 会生成 `ARTITALK_DATABASE_URL`。如果未使用 Vercel 集成，也可以从 Neon Console 复制 pooled connection string，并在 Vercel 项目中手动创建同名环境变量。
+
+::: danger
+Custom Prefix 如果不是 `ARTITALK`，服务端将无法读取数据库连接。修改或连接数据库后，请重新部署 Vercel 项目。
 :::
 
-1. 前往 [LeanCloud 国际版](https://LeanCloud.app/)，注册账号。
-2. 注册完成之后根据 LeanCloud 的提示绑定手机号和邮箱。
-3. 绑定完成之后点击`创建应用`，应用名称随意，接着在`结构化数据`中创建 `class`，命名为 `shuoshuo`。
-4. 在你新建的应用中找到`结构化数据`下的`用户`。点击`添加用户`，输入想用的用户名及密码。
-5. 回到`结构化数据`中，点击 `class` 下的 `shuoshuo`。找到权限，在 `Class 访问权限`中将 `add_fields` 以及 `create` 权限设置为指定用户，输入你刚才输入的用户名会自动匹配。为了安全起见，将 `delete` 和 `update` 也设置为跟它们一样的权限。
-6. 然后新建一个名为`atComment`的class，权限什么的使用默认的即可。
-7. 点击 `class` 下的 `_User` 添加列，列名称为 `img`，默认值填上你这个账号想要用的发布说说的头像url，这一项不进行配置，说说头像会显示为默认头像 —— Artitalk 的 logo。
-8. 在最菜单栏中找到设置-> 应用 keys，记下来 `AppID` 和 `AppKey` ，一会会用。
-9. 最后将 `_User` 中的权限全部调为指定用户，或者数据创建者，为了保证不被篡改用户数据以达到强制发布说说。
+### 3. 初始化数据库
 
-:::danger ❗ 关于设置权限的这几步
-这几步一定要设置好，才可以保证不被 “闲人” 破解发布说说的验证
-:::
+部署完成后访问 Vercel 项目的根地址，例如：
 
-### 🌼 开始使用
+```text
+https://your-vercel-app.vercel.app
+```
+
+数据库为空时，初始化页面会提供两个选项：
+
+- **初始化数据库**：初始化创建数据表结构，适合全新安装。
+- **从 LeanCloud 迁移**：创建表结构并导入旧数据。
+
+数据库首次创建完成后会显示`初始化管理员账户`按钮，初始化成功后刷新页面，根地址会显示服务端状态。管理员用户名和密码就是前面配置的 `ADMIN_USERNAME` 和 `ADMIN_PASSWORD`。
+
+### 4. 从 LeanCloud 迁移旧数据
+
+只有旧版 Artitalk 用户需要执行本节。
+
+1. 从 LeanCloud 导出 `shuoshuo` 和 `atComment` 数据。
+2. 在初始化页面选择 **从 LeanCloud 迁移**。
+3. 上传导出的 `shuoshuo.0.jsonl` 和 `atComment.0.jsonl`。
+4. 提交迁移并等待成功提示。
+
+如果旧应用没有评论数据，请准备一个空的 `atComment.0.jsonl` 文件再上传。迁移前建议保留原始导出文件作为备份。
+
+## 🌼 在页面中使用
+
+引用 Artitalk 脚本、创建容器，并把 `serverURL` 改为自己的 Vercel 部署地址：
 
 ```html
-<!-- 引用 artitalk -->
-<script type="text/javascript" src="https://unpkg.com/artitalk"></script>
-<!-- 存放说说的容器 -->
+<script src="https://unpkg.com/artitalk"></script>
 <div id="artitalk_main"></div>
 <script>
 new Artitalk({
-    appId: '', // Your LeanCloud appId
-    appKey: '' // Your LeanCloud appKey
+  backend: 'vercel',
+  serverURL: 'https://your-vercel-app.vercel.app'
 })
 </script>
 ```
 
-### 🎅 配置项的说明
+部署地址末尾是否包含 `/` 均可。详细可选参数见[配置项](/settings/)。
 
-可以通过修改配置项快捷更改部分功能，[点我查看详细说明](/settings.html)
+### 测试发布
 
-### 🔨 测试使用
+打开页面，点击右下角登录按钮，输入 Vercel 环境变量中配置的管理员用户名和密码。登录后即可发布、编辑和删除说说。
 
-如果上面的配置没有问题，打开你的页面，点击页面右下角的登录输入用户密码后，在输入框中输入说说，点击发布即可。
+如果页面一直显示加载动画，请先直接访问 `serverURL`，确认服务端可以访问且数据库已经初始化。
 
-### 🔨 说说内容的删除
+### 评论
 
-登录后点击说说内容框右上角的 x，点击确定删除即可。
-
-### 🔨 说说内容的修改
-
-点击想要修改的那条说说的头像，会自动跳转到只有一条提示语以及输入框的界面，在输入框中编辑完之后点击保存即可
-
-注：说说内容的修改与删除在 LeanCloud 后台也可进行操作
-
-### 🔨 评论的使用
-
-点击每条说说右下角的评论图标即可查看针对本条说说的评论或者对本条说说发起评论，再次点击会刷新页面已达到返回的作用
-
-填写邮箱以获得 gravatar 的头像
+点击每条说说右下角的评论图标，可以查看或发表评论。评论者填写邮箱后，Artitalk 会使用邮箱的 MD5 值加载 Gravatar 头像。
 
 ## 🦄 在 Typecho 中使用
 
-1. 登陆后台后新增独立页面
-2. 标题随意填，内容填为
+在 Typecho 后台新增独立页面，并在允许执行 HTML/JavaScript 的模板位置加入：
 
 ```html
-!!!
-<body> 
-    <script type="text/javascript" src="https://unpkg.com/artitalk"></script>
-    <div id="artitalk_main"></div>
-    <script>
-    new Artitalk({
-        appId: '', // Your LeanCloud appId
-        appKey: '' // Your LeanCloud appKey
-    })
-    </script>
-</body>
-!!!
+<script src="https://unpkg.com/artitalk"></script>
+<div id="artitalk_main"></div>
+<script>
+new Artitalk({
+  backend: 'vercel',
+  serverURL: 'https://your-vercel-app.vercel.app'
+})
+</script>
 ```
 
-3. 发布页面
+## 🍖 在 Vue 项目中使用
 
-## 🍖 在 Vue 单页项目中使用
+先在站点 HTML 中引入 Artitalk：
 
-例如 vuepress Gridsome 等博客框架是由 Vue 构建的。
-
-:::tip  在Gridsome中的准备
-在`gridsome.config.js`中引入 artitalk
-```js
-module.exports = {
-  // ...
-  head: [
-    ['script', {  src: "https://cdn.jsdelivr.net/npm/artitalk" }],
-  ],
-  // ...
-}
+```html
+<script src="https://unpkg.com/artitalk"></script>
 ```
-:::
 
-:::tip  在普通Vue项目中的准备
-在`<YOUR_PROJ>/public/index.html`中引入 artitalk
-```diff
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-+    <script src="https://cdn.jsdelivr.net/npm/artitalk"></script>
-  </body>
-</html>
-```
-:::
-
-新建 `src/components/Artitalk.vue`（VuePress: `.vuepress/components/Artitalk.vue`），添加以下内容
+然后创建组件：
 
 ```vue
 <template>
@@ -173,106 +169,55 @@ module.exports = {
 <script>
 export default {
   mounted() {
-    function addScript(url) {
-      var s = document.createElement("script");
-      s.id = "at";
-      url.indexOf("appId") == -1 ? (s.src = url) : (s.innerHTML = url);
-      document.head.appendChild(s);
-    }
-    addScript(`
-      new Artitalk({
-          appId: 'ogP8qj3veMh0LFpFWMPOyF0X-MdYXbMMI',
-          appKey: 'nHXLd3N3Jgh460t2iRQKWAtr',
-          shuoPla: 'Demo页密码：123456',
-          bgImg: 'https://cdn.jsdelivr.net/gh/drew233/cdn/20200409110727.webp',
-          atEmoji: {
-              huaji: 'https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.9/img/Sakura/images/smilies/icon_huaji.gif',
-              baiyan: 'https://cdn.jsdelivr.net/gh/Artitalk/Artitalk-emoji/baiyan.png',
-              bishi: 'https://cdn.jsdelivr.net/gh/Artitalk/Artitalk-emoji/bishi.png',
-              bizui: 'https://cdn.jsdelivr.net/gh/Artitalk/Artitalk-emoji/bizui.png',
-              chan: 'https://cdn.jsdelivr.net/gh/Artitalk/Artitalk-emoji/chan.png'          
-          },
-      })
-    `);
-  },
-  destroyed() {
-    document
-      .querySelectorAll("#at")
-      .forEach(element => element.parentNode.removeChild(element));
-    delete window.AV;
+    this.artitalk = new window.Artitalk({
+      backend: 'vercel',
+      serverURL: 'https://your-vercel-app.vercel.app'
+    })
   }
-};
+}
 </script>
 ```
 
-如果需要加入 Artitalk 的页面为 `.md`（例如 VuePress），直接在其中写入 `<Artitalk />` 即可。
+在 VuePress Markdown 页面中注册组件后，使用 `<Artitalk />` 即可。启用了客户端路由或页面缓存的项目，应避免在同一页面重复初始化组件。
 
-如果为 `.vue` （开发项目） 除了写入 `<Artitalk />`，还需要加入以下内容
+## 🔐 安全与跨域
 
-```diff
-<script>
-+import Artitalk from "@/components/Artitalk.vue";
+Vercel 方案不会把数据库连接、管理员密码或图床 Token 暴露在浏览器中。前端只需要公开服务端地址。
 
-export default {
-  components: {
-+    Artitalk
-  },
-};
-</script>
+生产环境建议配置 `ALLOW_ORIGIN`，只允许自己的站点调用接口：
+
+```text
+https://blog.example.com
 ```
 
-## 🚀 安全性
+多个站点使用英文逗号分隔，不要填写路径：
 
-由于 leancloud 的机制，应用的 Appid 以及 Appkey 均会暴漏在前端，可能会遭受到其他人的恶意攻击。
-如果你在担心这个问题，你可以使用[Artitalk_SafeMode](/settings.html/Artitalk_SafeMode)
+```text
+https://blog.example.com,https://www.example.com
+```
 
+修改环境变量后需要重新部署 Vercel 项目。未配置 `ALLOW_ORIGIN` 时，服务端默认允许所有来源访问。
 
-## 🕸 使用 cdn
+## 🕸 使用 CDN
 
-### 🕸 UNPKG
+### UNPKG
 
-#### ⭐ 获取最新
+获取最新版本：
 
 ```html
-// 默认获取最新，推荐使用
-<script type="text/javascript" src="https://unpkg.com/artitalk"></script>
+<script src="https://unpkg.com/artitalk"></script>
 ```
 
-#### 🍳 获取指定版本
-
-使用指定版本，在版本号填上对应版本即可，例如：[https://unpkg.com/artitalk@1.1.15/artitalk.js](https://unpkg.com/artitalk@1.1.15/artitalk.js)  
-
-关于版本可查看：[https://unpkg.com/artitalk/](https://unpkg.com/artitalk/)
+指定版本：
 
 ```html
-<script type="text/javascript" src="https://unpkg.com/artitalk@版本号/artitalk.js"></script>
+<script src="https://unpkg.com/artitalk@版本号"></script>
 ```
 
-### 🕸 JsDelivr（国内无法使用！！！）
-
-#### ⭐ 获取最新
+### JsDelivr
 
 ```html
-// 默认获取最新，推荐使用
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/artitalk"></script>
+<script src="https://cdn.jsdelivr.net/npm/artitalk"></script>
 ```
 
-#### 🍳 获取指定版本
-
-使用指定版本，在版本号填上对应版本即可，例如：[https://cdn.jsdelivr.net/npm/artitalk@1.1.15](https://cdn.jsdelivr.net/npm/artitalk@1.1.15)
-
-关于版本可查看：[https://cdn.jsdelivr.net/npm/artitalk/](https://cdn.jsdelivr.net/npm/artitalk/)
-
-```html
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/artitalk@版本号"></script>
-```
-
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-format="fluid"
-     data-ad-layout-key="-fb+5w+4e-db+86"
-     data-ad-client="ca-pub-9420537843748923"
-     data-ad-slot="8405286900"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+如果 CDN 在所在地区不可用，可以下载 `dist/js/artitalk.js` 和 `dist/css/artitalk.min.css` 后自行托管。

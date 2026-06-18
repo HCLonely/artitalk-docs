@@ -3,189 +3,163 @@ title: 配置项
 sidebar: auto
 ---
 
+## 初始化方式
 
-## 😜 Artitalk支持两种初始化方式
+Artitalk 支持在构造时传入配置，也支持先创建实例再调用 `init`：
 
 ```html
-<!-- 第一种 -->
 <script>
 new Artitalk({
-      appId: 'Your LeanCloud appId',
-      appKey: 'Your LeanCloud appKey',
+  backend: 'vercel',
+  serverURL: 'https://your-vercel-app.vercel.app'
 })
 </script>
+```
 
-<!-- 第二种 -->
+```html
 <script>
-var at = new Artitalk();
+var at = new Artitalk()
 at.init({
-      appId: 'Your LeanCloud appId',
-      appKey: 'Your LeanCloud appKey',      
+  backend: 'vercel',
+  serverURL: 'https://your-vercel-app.vercel.app'
 })
 </script>
 ```
 
 ## 必填
 
-### 📌appId
+### `serverURL`
 
-* 对应 LeanCloud 创建的应用中的 AppID
-* 参数类型: `string`
+- 功能：Artitalk Vercel 服务端地址。
+- 示例：`https://your-vercel-app.vercel.app`
+- 参数类型：`string`
 
-### 📌appKey
-
-* 对应 LeanCloud 创建的应用中的 AppKEY
-* 参数类型: `string`
+`serverURL` 是 Vercel 项目的公开访问地址，不是 Neon 数据库连接字符串。数据库连接字符串只应保存在 Vercel 环境变量 `ARTITALK_DATABASE_URL` 中。
 
 ## 选填
 
-### 📌serverURL
+### `backend`
 
-* 如果你是国内版 LeanCloud 用户，此项必填
-* 对应 LeanCloud 创建的应用中绑定的 API 域名。
-* 参数类型: `string`
+- 功能：显式标记当前使用 Vercel 服务端。
+- 推荐值：`vercel`
+- 参数类型：`string`
 
-### 📌lang
+当前客户端主要根据 `serverURL` 建立连接；建议保留 `backend: 'vercel'`，便于识别配置用途并兼容后续版本。
 
-* 功能：语言设置
-* 默认值：zh（中文）
-* 可选项：en（英语），es（西班牙语）
-* 参数类型: `string`
+### `lang`
 
-对不同语言有需求的可以联系我
+- 功能：界面语言。
+- 默认值：`zh`
+- 可选值：`zh`、`en`、`es`
+- 参数类型：`string`
 
-### 📌pageSize
+### `pageSize`
 
-* 功能：每页显示说说的数量（也是每次加载说说的数量）
-* 默认值：5
-* 参数类型: `Number`
+- 功能：每页显示和每次加载的说说数量。
+- 默认值：`5`
+- 参数类型：`number`
 
-### 📌shuoPla
+### `shuoPla`
 
-* 功能；在编辑说说的输入框中的占位符
-* 默认值：无
-* 参数类型: `string`
+- 功能：说说编辑框的占位文本。
+- 默认值：空
+- 参数类型：`string`
 
-### 📌avatarPla
+### `avatarPla`
 
-* 功能；自定义头像 url 的输入框的的占位符
-* 默认值：无
-* 参数类型: `string`
+- 功能：自定义头像 URL 输入框的占位文本。
+- 默认值：空
+- 参数类型：`string`
 
-默认每条说说的头像按照 LeanCloud 用户中设置的头像显示，如果发布时在自定义头像 url 中填写自定义头像链接，会取代默认头像
+管理员默认头像由 Vercel 环境变量 `ADMIN_IMG` 设置。发布时填写自定义头像 URL 会覆盖默认头像。
 
-### 📌motion
+### `motion`
 
-* 功能：加载动画的开关
-* 默认值：1（开启）
-* 可选项：0（关闭），1（开启）
-* 参数类型: `Boolean`
+- 功能：是否启用加载动画。
+- 默认值：`1`
+- 可选值：`0`、`1`
+- 参数类型：`boolean` 或 `number`
 
-不建议关闭加载动画
+### `bgImg`
 
-### 📌bgImg
+- 功能：说说输入框背景图片。
+- 默认值：空
+- 参数类型：`string`
 
-* 功能：说说输入框背景图片
-* 默认值：无
-* 参数类型: `string`
+### `color1`、`color2`、`color3`
 
-### 📌color1 color2 color3
+- `color1`：说说背景颜色 1 和按钮颜色 1。
+- `color2`：说说背景颜色 2 和按钮颜色 2。
+- `color3`：主要文字和图标颜色。
+- 参数类型：`string`
 
-* 功能：说说的配色
-* color1：说说背景颜色 1 & 按钮颜色 1
-* color2：说说背景颜色 2 & 按钮颜色 2
-* color3：说说字体颜色 1
-* 默认值：demo 页中当前配色
-* 参数类型: `string`
+### `atEmoji`
 
-### 📌atEmoji
+- 功能：添加自定义表情。
+- 默认值：空
+- 参数类型：`object`
 
-* 功能：自定义表情包
-* 默认值；无
-* 参数类型: `Object`
-
-JS 自带三套表情包（贴吧，bilibili小电视，QQ），分四页，最后一页为 custom，即用户自定义的表情包
-
-### 📌cssUrl
-
-* 功能：自定义css接口
-* 默认值：无
-* 格式；链接形式，可根据仓库中的main.css魔改（注意：仓库中的main.css中的color1等换成你所需要的颜色即可）
-* 参数类型: `string`
-
-### 📌atComment
-
-* 功能：评论功能的开关
-* 默认值：1（开启）
-* 可选项：0（关闭），1（开启）
-* 参数类型: `Boolean`
-
-## 配置项填写示例
-
-```html
-<script>
-      new Artitalk({
-            appId: '123456',
-            appKey: '123456',
-            atEmoji: {
-                  baiyan: "https://cdn.jsdelivr.net/gh/Artitalk/Artitalk-emoji/baiyan.png",
-                  bishi: "https://cdn.jsdelivr.net/gh/Artitalk/Artitalk-emoji/bishi.png",
-                  bizui: "https://cdn.jsdelivr.net/gh/Artitalk/Artitalk-emoji/bizui.png",
-                  chan: "https://cdn.jsdelivr.net/gh/Artitalk/Artitalk-emoji/chan.png",
-                  daku: "https://cdn.jsdelivr.net/gh/Artitalk/Artitalk-emoji/daku.png",
-                  dalao: "https://cdn.jsdelivr.net/gh/Artitalk/Artitalk-emoji/dalao.png",
-                  dalian: "https://cdn.jsdelivr.net/gh/Artitalk/Artitalk-emoji/dalian.png",
-                  dianzan: "https://cdn.jsdelivr.net/gh/Artitalk/Artitalk-emoji/dianzan.png",
-                  doge: "https://cdn.jsdelivr.net/gh/Artitalk/Artitalk-emoji/doge.png",
-                  facai: "https://cdn.jsdelivr.net/gh/Artitalk/Artitalk-emoji/facai.png",
-                  fadai: "https://cdn.jsdelivr.net/gh/Artitalk/Artitalk-emoji/fadai.png",
-                  fanu: "https://cdn.jsdelivr.net/gh/Artitalk/Artitalk-emoji/fanu.png",
-            },
-      })
-</script>
+```js
+atEmoji: {
+  baiyan: 'https://example.com/baiyan.png',
+  doge: 'https://example.com/doge.png'
+}
 ```
 
-## Artitalk_SafeMode
+### `cssUrl`
 
-**Artitalk_SafeMode**通过中间件的方式,在中间件替换APPID和APPKEY保护两者,避免两者暴露被刷
+- 功能：加载自定义 CSS。
+- 默认值：空
+- 参数类型：`string`
 
-使用Artitalk_SafeMode,请在前端随意伪造APPID和APPKEY,然后将serverurl修改为中间件网址即可
+建议以仓库中的 `dist/css/artitalk.min.css` 或 `src/css/main.css` 为基础制作自定义样式。
 
+### `atComment`
 
-### 👍CloudFlareWorker
+- 功能：评论功能开关。
+- 默认值：`1`
+- 可选值：`0`、`1`
+- 参数类型：`boolean` 或 `number`
 
-CloudFlareWorker针对免费用户提供了每天10w次的调用方式,并且随时能够开启UnderAttack防刷.
+### `blackAndWhiteTheme`
 
-1.新建一个Worker，将[`ArtitalkSafe.worker.js`](https://raw.githubusercontent.com/ArtitalkJS/Artitalk/master/ArtitalkSafe.worker.js)里面的内容复制到里面
+- 功能：启用黑白主题适配。
+- 默认值：`false`
+- 参数类型：`boolean`
 
-2.退出，设置两个变量`APPID`和`APPKEY`[变量名务必大写]
-
-3.修改配置项为:
+## 完整示例
 
 ```html
+<script src="https://unpkg.com/artitalk"></script>
+<div id="artitalk_main"></div>
 <script>
 new Artitalk({
-      serverURL: 'https://xxx.xxx.workers.dev',
-      appId: '随意输入写什么,不要暴露你的真实appkey',
-      appKey: '同上'
+  backend: 'vercel',
+  serverURL: 'https://your-vercel-app.vercel.app',
+  pageSize: 5,
+  shuoPla: '分享此刻的想法',
+  atComment: 1,
+  blackAndWhiteTheme: true,
+  atEmoji: {
+    doge: 'https://example.com/doge.png'
+  }
 })
 </script>
 ```
-4.现在,无论是查开源代码还是拦截网络请求,都将看不到AppKey和AppId.一旦被刷,你可以手动打开5秒盾防刷
 
-5.高级变量配置
+## 服务端安全配置
 
-- `SERVERDOMAIN` 通常来讲,Artitalk的API地址是`AppId前八位小写.api.lncldglobal.com`,但是自定义域名、国内版LeanCloud或者特殊情况不是这样子的,请新建一个变量名为`SERVERDOMAIN`,内容为自定义域名
-- `ATCOMMENT` 中间件评论防护,填写为`false`则彻底禁用Artitalk自带评论系统
-- `CORS` 跨域拦截,可以有效避免恶意外战请求,默认为`*`
+旧版文档中的 `appId`、`appKey`、国内版 LeanCloud API 域名和 Artitalk SafeMode 已不再用于当前 Vercel 后端。
 
+敏感信息应配置在 Vercel 项目的环境变量中：
 
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-format="fluid"
-     data-ad-layout-key="-fb+5w+4e-db+86"
-     data-ad-client="ca-pub-9420537843748923"
-     data-ad-slot="8405286900"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+| 变量名 | 用途 |
+| --- | --- |
+| `ARTITALK_DATABASE_URL` | Neon Postgres 连接字符串。通过 Vercel Storage 连接并使用 `ARTITALK` 前缀时自动生成。 |
+| `ADMIN_USERNAME` | 管理员用户名。 |
+| `ADMIN_PASSWORD` | 管理员密码。 |
+| `ADMIN_IMG` | 管理员默认头像。 |
+| `ADMIN_IMG_Token` | S.EE 图床上传 Token。 |
+| `ALLOW_ORIGIN` | 允许调用 API 的站点来源。 |
+
+不要把这些值写入 Artitalk 前端配置。修改服务端环境变量后，需要在 Vercel 中重新部署项目。
