@@ -19,15 +19,6 @@ export default defineUserConfig({
         href: 'https://cdn.jsdelivr.net/gh/drew233/cdn/atico.png',
       },
     ],
-    [
-      'script',
-      {
-        'data-ad-client': 'ca-pub-9420537843748923',
-        async: true,
-        src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
-      },
-    ],
-    ['script', { src: 'https://unpkg.com/artitalk' }],
   ],
   theme: defaultTheme({
     logo: 'https://cdn.jsdelivr.net/gh/drew233/cdn/logol.png',
@@ -36,7 +27,8 @@ export default defineUserConfig({
       { text: '首页', link: '/' },
       { text: '使用文档', link: '/doc/' },
       { text: '配置项', link: '/settings/' },
-      { text: '更新日志', link: '/release/' },
+      { text: '从Leancloud迁移', link: '/migration/' },
+      { text: '更新日志', link: '/changelogs/' },
       { text: '示例页面', link: '/demo/' },
       { text: 'FAQ', link: '/faq/' },
     ],

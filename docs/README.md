@@ -12,15 +12,15 @@ features:
   details: 账号和数据库凭据保存在 Vercel 服务端，避免在前端暴露敏感配置。
 - title: 🎁多功能输入
   details: 多功能输入框，满足你的一切需求
-footer: MIT Licensed | Copyright © 2020-present Uncle_drew
+footer: MIT Licensed | Copyright © 2020-present Uncle_drew & HCLonely
 ---
 <center>
 
 项目地址：[https://github.com/HCLonely/Artitalk](https://github.com/HCLonely/Artitalk)
 
 ![stars](https://img.shields.io/github/stars/HCLonely/Artitalk)
-![down](https://img.shields.io/npm/dm/artitalk.svg)
-![npm](https://img.shields.io/npm/v/artitalk.svg)
+![down](https://img.shields.io/npm/dm/@hclonely/artitalk.svg)
+![npm](https://img.shields.io/npm/v/@hclonely/artitalk.svg)
 ![language](https://img.shields.io/badge/language-JavaScript-red)
 
 </center>

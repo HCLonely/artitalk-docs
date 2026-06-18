@@ -3,19 +3,42 @@
 </template>
 
 <script>
+const artitalkScriptUrl =
+  'https://unpkg.com/@hclonely/artitalk'
+
+function loadArtitalk() {
+  if (typeof window.Artitalk === 'function') {
+    return Promise.resolve()
+  }
+
+  const existingScript = document.querySelector('script[data-artitalk]')
+  if (existingScript) {
+    return new Promise((resolve, reject) => {
+      existingScript.addEventListener('load', resolve, { once: true })
+      existingScript.addEventListener('error', reject, { once: true })
+    })
+  }
+
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script')
+    script.src = artitalkScriptUrl
+    script.dataset.artitalk = ''
+    script.addEventListener('load', resolve, { once: true })
+    script.addEventListener('error', reject, { once: true })
+    document.head.appendChild(script)
+  })
+}
+
 export default {
-  mounted() {
-    function addScript(url) {
-      const script = document.createElement('script')
-      script.id = 'at'
-      url.includes('appId') ? (script.innerHTML = url) : (script.src = url)
-      document.head.appendChild(script)
+  async mounted() {
+    await loadArtitalk()
+
+    if (typeof window.Artitalk !== 'function') {
+      throw new TypeError('Artitalk script loaded without exposing a constructor')
     }
 
-    addScript(`
-      new Artitalk({
-        appId: 'ogP8qj3veMh0LFpFWMPOyF0X-MdYXbMMI',
-        appKey: 'nHXLd3N3Jgh460t2iRQKWAtr',
+    this.artitalk = new window.Artitalk({
+        serverURL: 'https://artitalk-server-test.vercel.app/',
         shuoPla: 'Demo页密码：123456',
         bgImg: 'https://cdn.jsdelivr.net/gh/drew233/cdn/20200409110727.webp',
         atEmoji: {
@@ -26,13 +49,6 @@ export default {
           chan: 'https://cdn.jsdelivr.net/gh/Artitalk/Artitalk-emoji/chan.png'
         }
       })
-    `)
-  },
-  unmounted() {
-    document
-      .querySelectorAll('#at')
-      .forEach((element) => element.parentNode.removeChild(element))
-    delete window.AV
   },
 }
 </script>

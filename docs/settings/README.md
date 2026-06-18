@@ -130,7 +130,7 @@ atEmoji: {
 ## 完整示例
 
 ```html
-<script src="https://unpkg.com/artitalk"></script>
+<script src="https://unpkg.com/@hclonely/artitalk"></script>
 <div id="artitalk_main"></div>
 <script>
 new Artitalk({

@@ -7,8 +7,8 @@ sidebar: heading
 
 Artitalk 是一个可以嵌入博客或静态站点的说说/微语组件。当前版本使用部署在 Vercel 上的服务端和 Neon Postgres 数据库，不再要求创建 LeanCloud 应用。
 
-- GitHub 仓库：[Artitalk.js](https://github.com/HCLonely/Artitalk)
-- 原项目仓库：[Artitalk.js](https://github.com/ArtitalkJS/Artitalk)
+- GitHub 仓库：[HCLonely/Artitalk](https://github.com/HCLonely/Artitalk)
+- 原项目仓库：[ArtitalkJS/Artitalk](https://github.com/ArtitalkJS/Artitalk)
 
 ### 🎉 特性
 
@@ -114,7 +114,7 @@ https://your-vercel-app.vercel.app
 引用 Artitalk 脚本、创建容器，并把 `serverURL` 改为自己的 Vercel 部署地址：
 
 ```html
-<script src="https://unpkg.com/artitalk"></script>
+<script src="https://unpkg.com/@hclonely/artitalk"></script>
 <div id="artitalk_main"></div>
 <script>
 new Artitalk({
@@ -141,7 +141,7 @@ new Artitalk({
 在 Typecho 后台新增独立页面，并在允许执行 HTML/JavaScript 的模板位置加入：
 
 ```html
-<script src="https://unpkg.com/artitalk"></script>
+<script src="https://unpkg.com/@hclonely/artitalk"></script>
 <div id="artitalk_main"></div>
 <script>
 new Artitalk({
@@ -156,7 +156,7 @@ new Artitalk({
 先在站点 HTML 中引入 Artitalk：
 
 ```html
-<script src="https://unpkg.com/artitalk"></script>
+<script src="https://unpkg.com/@hclonely/artitalk"></script>
 ```
 
 然后创建组件：
@@ -205,19 +205,19 @@ https://blog.example.com,https://www.example.com
 获取最新版本：
 
 ```html
-<script src="https://unpkg.com/artitalk"></script>
+<script src="https://unpkg.com/@hclonely/artitalk"></script>
 ```
 
 指定版本：
 
 ```html
-<script src="https://unpkg.com/artitalk@版本号"></script>
+<script src="https://unpkg.com/@hclonely/artitalk@版本号"></script>
 ```
 
 ### JsDelivr
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/artitalk"></script>
+<script src="https://cdn.jsdelivr.net/npm/@hclonely/artitalk"></script>
 ```
 
-如果 CDN 在所在地区不可用，可以下载 `dist/js/artitalk.js` 和 `dist/css/artitalk.min.css` 后自行托管。
+如果 CDN 在所在地区不可用，可以下载 `dist/js/artitalk.min.js` 和 `dist/css/artitalk.min.css` 后自行托管。
